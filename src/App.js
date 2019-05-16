@@ -1,13 +1,14 @@
 import React from 'react';
 import logo from './logo.svg';
 import './App.css';
+import {BrowserRouter as Router} from 'react-router-dom';
 
-function App() {
-  return (
-    <div className="App">
-      <h1>Hello World</h1>
-    </div>
-  );
+class App extends React.Component {
+  render() {
+    return (
+      <Router></Router>
+    );
+  }
 }
 
 export default App;
