@@ -1,0 +1,43 @@
+h2 {
+    color: white;
+}
+
+
+tr {
+    background-color: white;
+}
+
+.fa-home {
+    color: white;
+    margin-left: 16px;
+    margin-right: 16px;
+    margin-bottom: 6px;
+    font-size: 25px;
+}
+
+.fa-th-large {
+    color: white;
+    margin-left: 20px;
+}
+
+.wbdv-mod-col {
+    width: 25%;
+}
+
+.wbdv-navbar-add {
+    margin-left: 40px;
+    margin-right: 20px;
+}
+
+.wbdv-plus-circle {
+    color: white;
+    margin-left: 50px;
+    font-size: 25px;
+}
+
+.wbdv-table-heading {
+    border-width: 0px;
+    border-bottom: 2px;
+    border-color: darkgray;
+    border-style: solid;
+}

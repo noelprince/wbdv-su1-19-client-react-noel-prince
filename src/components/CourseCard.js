@@ -14,10 +14,10 @@ export default class CourseCard
                      src="https://picsum.photos/300/200"/>
                 <div className="card-body">
                     <h5 className="card-title">
-                        {this.props.title}
+                        {this.props.course.title}
                     </h5>
                     <p className="card-text">Card text.</p>
-                    <a href="#" className="btn btn-primary">More...</a>
+                    <a href={`course-editor/${this.props.course.id}`} className="btn btn-primary">More...</a>
                 </div>
             </div>
         )

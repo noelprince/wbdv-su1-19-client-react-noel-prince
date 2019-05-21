@@ -5,29 +5,18 @@ import CourseEditor from "./CourseEditor";
 import {BrowserRouter as Router, Link, Route} from 'react-router-dom';
 import CourseList from './CourseList';
 import CourseGrid from './CourseGrid';
+import '../../node_modules/font-awesome/css/font-awesome.min.css';
 
 export default class Whiteboard extends React.Component {
     render() {
         return (
             <Router>
-                <div className="container">
-                    <h1>WhiteBoard</h1>
-                    <Link to="/course-list">List</Link>
-                    <Link to="/course-grid">Grid</Link>
-                    <Link to="/course-editor">Editor</Link>
                     <Route path="/course-grid"
-                           component={CourseGrid}></Route>
-                    <Route path="/course-list"
-                           component={CourseList}></Route>
-                    <Route path="/course-editor"
-                           component={CourseEditor}></Route>
-
-                    <div className="card-group">
-                        <CourseCard title="CS5200"/>
-                        <CourseCard title="CS5610"/>
-                        <CourseCard title="CS5500"/>
-                    </div>
-                </div>
+                           exact component={CourseGrid}></Route>
+                    <Route path="/"
+                           exact component={CourseList}></Route>
+                    <Route path="/course-editor/:courseId"
+                           exact component={CourseEditor}></Route>
             </Router>
         )
     }
