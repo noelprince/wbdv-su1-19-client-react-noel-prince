@@ -1,28 +1,37 @@
 import React from 'react';
 import courses from './courses.json';
 
-export default class CourseService {
+export default class CourseService extends React.Component {
+    constructor(props) {
+        super(props);
+        this.state = {
+            courses: courses
+        }
+    }
     createCourse = (course) => {
-        courses.add(course);
+        this.state.courses.push(course);
     }
 
     findAllCourses = () => {
-        return courses;
+        return this.state.courses;
     }
 
     findCourseById = (id) => {
-        return courses.find(course => course.id == id);
+        return this.state.courses.find(course => course.id === id);
     }
 
     updateCourse = (id, course) => {
-        courses.filter(courseRoot => {
-            if (courseRoot.id == id) {
-                courseRoot = course;
+        var index = -1;
+        for (var i=0; i < this.state.courses.length; i++) {
+            if (this.state.courses[i].id == id) {
+                index = i;
             }
-        })
+        }
+        this.state.courses[index] = course;
     }
 
     deleteCourse = (id) => {
-
+        const coursesNew = this.state.courses.filter(course => course.id !== id);
+        this.state.courses = coursesNew;
     }
 }

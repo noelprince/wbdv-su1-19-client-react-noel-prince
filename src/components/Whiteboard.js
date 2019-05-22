@@ -1,22 +1,28 @@
 import React from 'react'
-import CourseCard from './CourseCard'
-import ModuleList from "./ModuleList";
 import CourseEditor from "./CourseEditor";
-import {BrowserRouter as Router, Link, Route} from 'react-router-dom';
+import {BrowserRouter as Router, Route} from 'react-router-dom';
 import CourseList from './CourseList';
 import CourseGrid from './CourseGrid';
+import CourseService from '../services/CourseService';
 import '../../node_modules/font-awesome/css/font-awesome.min.css';
 
 export default class Whiteboard extends React.Component {
+    constructor(props) {
+        super(props);
+        const courseService = new CourseService();
+        this.state = {
+            courseService: courseService
+        }
+    }
     render() {
         return (
             <Router>
                     <Route path="/course-grid"
-                           exact component={CourseGrid}></Route>
-                    <Route path="/"
-                           exact component={CourseList}></Route>
+                           render ={() => <CourseGrid courseService={this.state.courseService}/>}></Route>
+                    <Route path="/course-list"
+                           render = {() => <CourseList courseService={this.state.courseService}/>}></Route>
                     <Route path="/course-editor/:courseId"
-                           exact component={CourseEditor}></Route>
+                           render = {() => <CourseEditor courseService={this.state.courseService}/>}></Route>
             </Router>
         )
     }

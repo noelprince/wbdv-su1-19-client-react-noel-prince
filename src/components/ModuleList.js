@@ -1,5 +1,6 @@
-import React from 'react'
-import ModuleItem from './ModuleItem'
+import React from 'react';
+import ModuleItem from './ModuleItem';
+import {Link} from 'react-router-dom';
 
 export default class ModuleList extends React.Component {
     constructor(props) {
@@ -10,20 +11,27 @@ export default class ModuleList extends React.Component {
                 title: "",
                 item: "New Module"
             },
-            modules: this.props.modules
+            modules: this.props.course.modules,
+            course: this.props.course,
+            courseService: this.props.courseService
         }
     }
     createModule = () => {
         this.state.module.id = (new Date()).getTime();
-        if (this.state.module.title == "") {
+        if (this.state.module.title === "") {
             this.state.module.title = "New Module";
         }
+        this.state.course.modules = [this.state.module, ...this.state.modules];
         this.setState({
             module: {
                 id: (new Date()).getTime(),
+                title: "New Module"
             },
-            modules: [this.state.module, ...this.state.modules]
+            modules: [this.state.module, ...this.state.modules],
         })
+        this.state.courseService.updateCourse(this.state.course.id, this.state.course);
+        
+        
     }
 
     deleteModule = (id) => {
@@ -45,6 +53,8 @@ export default class ModuleList extends React.Component {
     render() {
         return(
             <div>
+                <Link to={"/course-list"}>Course List </Link>
+                <Link to={"/course-grid"}>Course Grid</Link>
                 <h3>Module List</h3>
                 <ul className="list-group">
                     <li onChange={this.titleChanged}

@@ -1,25 +1,17 @@
-import React from 'react'
+import React from 'react';
+import {Link} from 'react-router-dom';
 
-export default class CourseCard
-    extends React.Component
-{
-    constructor(props) {
-        super(props)
-        this.state = {}
-    }
-    render() {
-        return (
+const CourseCard = ({course}) =>
             <div className="card" styles={{width: '18rem'}}>
                 <img className="card-img-top"
                      src="https://picsum.photos/300/200"/>
                 <div className="card-body">
                     <h5 className="card-title">
-                        {this.props.course.title}
+                        {course.title}
                     </h5>
                     <p className="card-text">Card text.</p>
-                    <a href={`course-editor/${this.props.course.id}`} className="btn btn-primary">More...</a>
+                    <Link to={`/course-editor/${course.id}`}><button className="btn btn-primary">More...</button></Link>
                 </div>
             </div>
-        )
-    }
-}
+
+export default CourseCard;

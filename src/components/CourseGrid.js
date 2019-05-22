@@ -1,24 +1,57 @@
 import React from 'react';
 import CourseCard from './CourseCard';
-import CourseList from './CourseList';
-import CourseService from '../Services/CourseService';
+import {Link} from 'react-router-dom';
+import './course-list.style.client.css';
 
 export default class CourseGrid extends React.Component {
-    constructor() {
-        super();
-        const courseService = new CourseService();
+    constructor(props) {
+        super(props);
+        const courseService = this.props.courseService;
         const courses = courseService.findAllCourses();
+        this.addCourse = this.addCourse.bind(this);
+        this.titleChange = this.titleChange.bind(this);
         this.state = {
-            courses: courses
+            courses: courses,
+            courseService: courseService
         }
+    }
+
+    addCourse() {
+        const course = {
+            id: (new Date()).getTime().toString(),
+            title: this.state.courseName,
+            modules: []
+        }
+        this.state.courseService.createCourse(course);
+        this.setState({
+            courses: this.state.courseService.findAllCourses()
+        })
+    }
+
+    titleChange = (event) => {
+        const courseName = event.target.value;
+        this.setState({
+            courseName: courseName
+        })
     }
     render() {
         return (
             <div>
-                <h1>Course Grid</h1>
+                <div className="navbar navbar-expand-md bg-primary">
+                    <i className="fa fa-home"></i>
+                    <h2>Course Manager</h2>
+                    <form className="form-inline col-sm-7">
+                        <input className="form-control wbdv-navbar-add col-lg-12"
+                            type="text"
+                            placeholder="New Course Title"
+                            onChange={this.titleChange}/>
+                    </form>
+                    <i className="fa fa-plus-circle wbdv-plus-circle" onClick={this.addCourse}></i>
+                    <Link to="/course-list"><i className="fa fa-th-large"></i></Link>
+                </div>
                 <div className="card-group">
                     {
-                        this.state.courses.map((course) => <CourseCard course={course}/>)
+                        this.state.courses.map((course) => <CourseCard key={course.id} course={course}/>)
                     }
                 </div>
             </div>
