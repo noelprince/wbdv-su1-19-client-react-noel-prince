@@ -1,7 +1,7 @@
 import React from 'react';
 import CourseCard from './CourseCard';
 import {Link} from 'react-router-dom';
-import './course-list.style.client.css';
+import '../course-list/course-list.style.client.css';
 
 export default class CourseGrid extends React.Component {
     constructor(props) {
@@ -12,6 +12,7 @@ export default class CourseGrid extends React.Component {
         this.titleChange = this.titleChange.bind(this);
         this.state = {
             courses: courses,
+            courseName: "",
             courseService: courseService
         }
     }
@@ -34,20 +35,21 @@ export default class CourseGrid extends React.Component {
             courseName: courseName
         })
     }
+
     render() {
         return (
             <div>
-                <div className="navbar navbar-expand-md bg-primary">
+                <div className="navbar navbar-expand bg-primary">
                     <i className="fa fa-home"></i>
                     <h2>Course Manager</h2>
-                    <form className="form-inline col-sm-7">
+                    <form className="form-inline col-lg-7">
                         <input className="form-control wbdv-navbar-add col-lg-12"
                             type="text"
                             placeholder="New Course Title"
                             onChange={this.titleChange}/>
                     </form>
-                    <i className="fa fa-plus-circle wbdv-plus-circle" onClick={this.addCourse}></i>
-                    <Link to="/course-list"><i className="fa fa-th-large"></i></Link>
+                    <i className="fa fa-plus-circle wbdv-plus-circle col-sm-1" onClick={this.addCourse}></i>
+                    <Link to="/course-list"><i className="fa fa-th-large col-sm-1"></i></Link>
                 </div>
                 <div className="card-group">
                     {

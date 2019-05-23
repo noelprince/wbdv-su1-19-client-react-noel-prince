@@ -5,13 +5,16 @@ import {Link} from 'react-router-dom';
 export default class ModuleList extends React.Component {
     constructor(props) {
         super(props);
+        var cleanModules = [];
+        if (this.props.course.modules != null) {
+            cleanModules = this.props.course.modules;
+        }
         this.state = {
             module: {
                 id: -1,
                 title: "",
-                item: "New Module"
             },
-            modules: this.props.course.modules,
+            modules: cleanModules,
             course: this.props.course,
             courseService: this.props.courseService
         }
@@ -57,22 +60,23 @@ export default class ModuleList extends React.Component {
                 <Link to={"/course-grid"}>Course Grid</Link>
                 <h3>Module List</h3>
                 <ul className="list-group">
-                    <li onChange={this.titleChanged}
-                        className="list-group-item"
-                        onClick={this.clearTargetValue}>
+                    <li className="list-group-item">
                         <input className="form-control"
-                               placeholder={this.state.module.item}/>
+                               placeholder="New Module"
+                               type="text"
+                               onChange={this.titleChanged}/>
                         <button onClick={this.createModule} className="btn btn-primary btn-block">
                             Add module
                         </button>
                     </li>
                     {
-                        this.state.modules.map((module) =>
+                        this.state.modules.map((moduleForMap) =>
                             <ModuleItem
                                 deleteModule={this.deleteModule}
-                                module={module} 
-                                key={module.id}
-                                title={module.title}/>
+                                moduleInput={moduleForMap} 
+                                key={moduleForMap.id}
+                                setActiveModule={this.props.setActiveModule}
+                                title={moduleForMap.title}/>
                         )
                     }
                 </ul>

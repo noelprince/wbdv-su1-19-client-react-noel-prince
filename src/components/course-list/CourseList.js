@@ -3,7 +3,6 @@ import CourseRow from './CourseRow';
 import {Link} from 'react-router-dom';
 import './course-list.style.client.css';
 
-
 export default class CourseList extends React.Component {
     constructor(props) {
         super(props);
