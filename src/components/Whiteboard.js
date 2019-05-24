@@ -9,9 +9,8 @@ import '../../node_modules/font-awesome/css/font-awesome.min.css';
 export default class Whiteboard extends React.Component {
     constructor(props) {
         super(props);
-        const courseService = new CourseService();
         this.state = {
-            courseService: courseService
+            courseService: new CourseService()
         }
     }
     render() {

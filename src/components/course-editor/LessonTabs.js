@@ -13,7 +13,7 @@ export default class LessonTabs extends React.Component {
             course: this.props.course,
             renderAgain: this.props.renderAgain,
             setActiveLesson: this.props.setActiveLesson,
-            title: "New Lesson"
+            title: ""
         }
     }
 
@@ -37,8 +37,6 @@ export default class LessonTabs extends React.Component {
             }
         })
 
-        console.log(newModuleList);
-
         var newCourse = {
             id: this.state.course.id,
             title: this.state.course.title,
@@ -49,7 +47,7 @@ export default class LessonTabs extends React.Component {
         this.state.renderAgain();
 
         this.setState({
-            title: "New Lesson"
+            title: ""
         })
     }
 
@@ -65,13 +63,13 @@ export default class LessonTabs extends React.Component {
     }
 
     inputHelper() {
-        console.log(this.state.activeModule);
         if (this.state.activeModule != null) {
             return (<li>
                         <input className="form-control"
                             placeholder="New Lesson"
                             type="text"
-                            onChange={this.titleChanged}/>
+                            onChange={this.titleChanged}
+                            value={this.state.title}/>
                             <button className="btn btn-primary" onClick={this.addLesson}>Add</button>
                     </li>)
         }
@@ -108,9 +106,9 @@ export default class LessonTabs extends React.Component {
     }
 
     renderHelper() {
-        if (this.state.activeModule != null && this.state.activeModule.lessons != null && this.state.activeModule.lessons.length != 0) {
+        if (this.state.activeModule !== null && this.state.activeModule.lessons !== null && this.state.activeModule.lessons.length != 0) {
             return this.state.activeModule.lessons.map((lesson) => {
-                if (this.state.activeLesson != null && lesson.id === this.state.activeLesson.id) {
+                if (this.state.activeLesson !== null && lesson.id === this.state.activeLesson.id) {
                     return (<li className="nav-item" key={lesson.id}>
                                 <a className="nav-link active" href="#" onClick={() => this.state.setActiveLesson(lesson)}>{lesson.title}
                                 <i className="fa fa-times-circle" onClick={(e) => {
@@ -122,6 +120,7 @@ export default class LessonTabs extends React.Component {
                     return (<li className="nav-item" key={lesson.id}>
                                 <a className="nav-link" href="#" onClick={() => this.state.setActiveLesson(lesson)}>{lesson.title}
                                 <i className="fa fa-times-circle" onClick={(e) => {
+                                    e.stopPropagation();
                                     this.removeLesson(lesson);
                                     }}></i></a>
                             </li>)
