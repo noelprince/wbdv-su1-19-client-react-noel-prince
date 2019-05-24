@@ -101,12 +101,21 @@ export default class CourseEditor extends React.Component {
                 var newActiveTopic = null;
                 if (this.state.activeModule != null) {
                     newActiveModule = courses[i].modules.find(moduleMapItem => this.state.activeModule.id === moduleMapItem.id);
+                    this.setState({
+                        activeModule: newActiveModule
+                    })
                 }
                 if (newActiveModule != null && this.state.activeLesson != null) {
                     var newActiveLesson = newActiveModule.lessons.find(lessonMapItem => this.state.activeLesson.id === lessonMapItem.id);
+                    this.setState({
+                        activeLesson: newActiveLesson
+                    })
                 }
                 if (newActiveLesson != null && this.state.activeTopic != null) {
                     var newActiveTopic = newActiveLesson.topics.find(topicMapItem => topicMapItem === this.state.activeTopic);
+                    this.setState({
+                        newActiveTopic
+                    })
                 }
                 console.log(newActiveModule);
                 console.log(newActiveLesson);

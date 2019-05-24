@@ -1,6 +1,10 @@
 .fa-times-circle {
-    margin-left: 4px;
+    margin-left: 8px;
     display: inline-block
+}
+
+.fa-edit {
+    margin-left: 8px;
 }
 
 a {
