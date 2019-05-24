@@ -1,7 +1,7 @@
 import React from 'react';
 import courses from './courses.json';
 
-export default class CourseService extends React.Component {
+class CourseService extends React.Component {
     constructor(props) {
         super(props);
         this.state = {
@@ -37,3 +37,5 @@ export default class CourseService extends React.Component {
         })
     }
 }
+
+export default CourseService;
