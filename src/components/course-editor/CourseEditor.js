@@ -9,8 +9,8 @@ export default class CourseEditor extends React.Component {
             super(props);
             const pathParts = window.location.href.split("/");
             const courseId = pathParts[4];
-            const courseService = this.props.courseService;
-            const course = courseService.findCourseById(courseId);
+            const course = this.props.courseService.findCourseById(courseId);
+            this.renderAgain = this.renderAgain.bind(this);
             this.setActiveModule = this.setActiveModule.bind(this);
             this.setActiveLesson = this.setActiveLesson.bind(this);
             this.setActiveTopic = this.setActiveTopic.bind(this);
@@ -20,26 +20,20 @@ export default class CourseEditor extends React.Component {
                 activeModule: null,
                 activeLesson: null,
                 activeTopic: null,
-                courseService: courseService
             }
         }
     
     setActiveModule(module) {
-        console.log(module);
         for (var i = 0; i < this.state.course.modules.length; i++) {
             if (module.id === this.state.course.modules[i].id) {
-                console.log(module.id);
-                console.log("step 1");
                 this.setState({
                         activeModule: this.state.course.modules[i]
                 })
                 if (this.state.course.modules[i].lessons  != null && this.state.course.modules[i].lessons[0]  != null) {
-                    console.log("step 2");
                     this.setState({
                         activeLesson: this.state.course.modules[i].lessons[0]
                     })
                     if (this.state.course.modules[i].lessons[0].topics != null && this.state.course.modules[i].lessons[0].topics[0] != null) {
-                        console.log("step 3");
                         this.setState({
                             activeTopic: this.state.course.modules[i].lessons[0].topics[0]
                         })
@@ -49,7 +43,6 @@ export default class CourseEditor extends React.Component {
                         })
                     }
                 } else {
-                    console.log("woops");
                     this.setState({
                         activeLesson: null,
                         activeTopic: null
@@ -88,27 +81,78 @@ export default class CourseEditor extends React.Component {
         }
     }
 
+    renderAgain() {
+        var courses = this.props.courseService.findAllCourses();
+        var course = null;
+        for (var i = 0; i < courses.length; i++) {
+            if  (courses[i].id === this.state.course.id) {
+                this.setState({
+                    course: courses[i]
+                })
+                var newActiveModule = null;
+                var newActiveLesson = null;
+                var newActiveTopic = null;
+                if (this.state.activeModule != null) {
+                    newActiveModule = courses[i].modules.find(moduleMapItem => this.state.activeModule.id === moduleMapItem.id);
+                }
+                if (newActiveModule != null) {
+                    var newActiveLesson = newActiveModule.lessons.find(lessonMapItem => this.state.activeLesson.id === lessonMapItem.id);
+                    console.log(newActiveLesson);
+                }
+                if (newActiveLesson != null) {
+                    var newActiveTopic = newActiveLesson.topics.find(topicMapItem => topicMapItem.id === this.state.activeTopic.id);
+                    console.log("What Happened");
+                }
+                if (newActiveModule === null) {
+                    this.setState({
+                        activeModule: null,
+                        activeLesson: null,
+                        activeTopic: null
+                    })
+                } else if (newActiveLesson === null) {
+                    this.setState({
+                        activeModule: newActiveModule,
+                        activeLesson: null,
+                        activeTopic: null
+
+                    })
+                } else if (newActiveTopic === null) {
+                    this.setState({
+                        activeModule: newActiveModule,
+                        activeLesson: newActiveLesson,
+                        activeTopic: null
+                    })
+                }
+            }
+        }
+    }
+
     render() {
         return(
             <div>
-                <h2>Course Editor {this.state.courseId}</h2>
+                <h1>Course Editor {this.state.courseId}</h1>
                 <div className="row">
                     <div className="col-4 left">
-                        <ModuleList courseService={this.state.courseService}
+                        <ModuleList activeModule={this.state.activeModule}
+                                    courseService={this.props.courseService}
                                     course={this.state.course}
+                                    renderAgain={this.renderAgain}
                                     setActiveModule={this.setActiveModule}/>
                     </div>
                     <div className="col-8 right">
                         <LessonTabs activeModule={this.state.activeModule}
                                     activeLesson={this.state.activeLesson}
-                                    courseService={this.state.courseService}
+                                    courseService={this.props.courseService}
                                     course={this.state.course}
+                                    renderAgain={this.renderAgain}
                                     setActiveLesson={this.setActiveLesson}/>
                         <br/>
-                        <TopicPills activeLesson={this.state.activeLesson}
+                        <TopicPills activeModule={this.state.activeModule}
+                                    activeLesson={this.state.activeLesson}
                                     activeTopic={this.state.activeTopic}
-                                    courseService={this.state.courseService}
+                                    courseService={this.props.courseService}
                                     course={this.state.course}
+                                    renderAgain={this.renderAgain}
                                     setActiveTopic={this.setActiveTopic}/>
                     </div>
                 </div>

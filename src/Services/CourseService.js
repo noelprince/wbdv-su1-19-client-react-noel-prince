@@ -23,7 +23,7 @@ export default class CourseService extends React.Component {
     updateCourse = (id, course) => {
         var index = -1;
         for (var i=0; i < this.state.courses.length; i++) {
-            if (this.state.courses[i].id == id) {
+            if (this.state.courses[i].id === id) {
                 index = i;
             }
         }
@@ -32,6 +32,8 @@ export default class CourseService extends React.Component {
 
     deleteCourse = (id) => {
         const coursesNew = this.state.courses.filter(course => course.id !== id);
-        this.state.courses = coursesNew;
+        this.setState({
+            courses: coursesNew
+        })
     }
 }
