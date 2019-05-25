@@ -39,7 +39,7 @@ export default class CourseGrid extends React.Component {
     render() {
         return (
             <div>
-                <div className="navbar navbar-expand bg-primary">
+                <div className="navbar navbar-expand-md bg-primary">
                     <i className="fa fa-home"></i>
                     <h2>Course Manager</h2>
                     <form className="form-inline col-lg-7">
