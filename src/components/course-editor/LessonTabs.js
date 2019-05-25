@@ -136,7 +136,7 @@ export default class LessonTabs extends React.Component {
                 } else {
                     return (<li className="nav-item" key={lesson.id}>
                                 <a className={activeLevel} href="#" onClick={() => this.state.setActiveLesson(lesson)}>{lesson.title}
-                                <i class="fa fa-edit" onClick={(e) => {
+                                <i className="fa fa-edit" onClick={(e) => {
                                     this.updateLesson(lesson);
                                     e.stopPropagation();
                                 }}></i>
@@ -191,7 +191,6 @@ export default class LessonTabs extends React.Component {
 
         this.state.courseService.updateCourse(newCourse.id, newCourse);
         this.state.renderAgain();
-        console.log(this.state.activeModule);
         this.state.activeModule.modules = newModuleList;
     }
 
