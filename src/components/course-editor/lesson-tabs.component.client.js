@@ -129,7 +129,7 @@ export default class LessonTabs extends React.Component {
                                     onChange={this.updateTitleChanged}
                                     value={this.state.lessonUpdate.title}/>
                                 <button onClick={this.submitLesson} className="btn btn-primary btn-block">
-                                    "submit"
+                                    submit
                                 </button>
                             </li>
                     )
