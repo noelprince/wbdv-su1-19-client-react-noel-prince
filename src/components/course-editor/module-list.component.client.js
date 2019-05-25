@@ -1,5 +1,5 @@
 import React from 'react';
-import ModuleItem from './ModuleItem';
+import ModuleItem from './module-item.component.client';
 import {Link} from 'react-router-dom';
 
 export default class ModuleList extends React.Component {

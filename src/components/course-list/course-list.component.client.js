@@ -1,5 +1,5 @@
 import React from 'react';
-import CourseRow from './CourseRow';
+import CourseRow from './course-list-item.component.client';
 import {Link} from 'react-router-dom';
 import './course-list.style.client.css';
 

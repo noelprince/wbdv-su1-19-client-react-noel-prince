@@ -1,5 +1,5 @@
 import React from 'react';
-import CourseCard from './CourseCard';
+import CourseCard from './course-card.component.client';
 import {Link} from 'react-router-dom';
 import '../course-list/course-list.style.client.css';
 
