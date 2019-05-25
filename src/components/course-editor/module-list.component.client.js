@@ -135,7 +135,7 @@ export default class ModuleList extends React.Component {
     render() {
         return(
             <div>
-                <Link to={"/course-list"}>Course List </Link>
+                <Link to={"/"}>Course List </Link>
                 <Link to={"/course-grid"}>Course Grid</Link>
                 <h3>Module List</h3>
                 <ul className="list-group">

@@ -49,7 +49,7 @@ export default class CourseGrid extends React.Component {
                             onChange={this.titleChange}/>
                     </form>
                     <i className="fa fa-plus-circle wbdv-plus-circle col-sm-1" onClick={this.addCourse}></i>
-                    <Link to="/course-list"><i className="fa fa-th-large col-sm-1"></i></Link>
+                    <Link to="/"><i className="fa fa-th-large col-sm-1"></i></Link>
                 </div>
                 <div className="card-group">
                     {
