@@ -33,9 +33,9 @@ const propertyToDispatchMapper = dispatch => ({
         widgetService
             .findAllWidgets()
             .then(widgets => dispatch({type: 'FIND_ALL_WIDGETS', widgets: widgets})),
-    updateWidget: (widget) =>
+    updateWidget: (id, widget) =>
         widgetService
-            .updateWidget(widget)
+            .updateWidget(id, widget)
             .then(widgets =>
                 dispatch({
                     type: 'CREATE_WIDGET',

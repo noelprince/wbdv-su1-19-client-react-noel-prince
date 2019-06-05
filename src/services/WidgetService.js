@@ -29,10 +29,8 @@ export default class WidgetService {
         fetch(`http://localhost:8080/api/widgets/${widgetId}`, {
             method: 'DELETE'
         }).then(response => response.json())
-    updateWidget = (newWidget) => {
-        console.log(newWidget);
-        console.log(JSON.stringify(newWidget));
-        return (fetch(`http://localhost:8080/api/widgets/${newWidget.id}`, {
+    updateWidget = (wid, newWidget) => {
+        return (fetch(`http://localhost:8080/api/widgets/${wid}`, {
             method: 'PUT',
             body: JSON.stringify(newWidget),
             headers: {

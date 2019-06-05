@@ -4,7 +4,7 @@ import ParagraphItem from './ParagraphItem'
 import ListItem from './ListItem'
 import ImageItem from './ImageItem'
 import LinkItem from './LinkItem'
-import {Button} from 'react-bootstrap';
+import {Button} from 'react-bootstrap'
 import './WidgetListItem.css'
 
 /**
@@ -79,8 +79,10 @@ export default class WidgetListItem extends React.Component {
     genButtonBar = (widgetType) => {
         return <div className="row">
             <h1 className="col-lg-7 col-md-6">{widgetType}</h1>
-            <Button variant="warning col-md-1 col-sm-1">Shift Up</Button>
-            <Button variant="warning col-md-1 col-sm-1">Shift Down</Button>
+            {this.props.index != 0 &&
+            <Button onClick={() => this.props.shiftUp(this.props.widget)} variant="warning col-md-1 col-sm-1">Shift Up</Button>}
+            {this.props.index+1 != this.props.lengthVal &&
+            <Button onClick={() => this.props.shiftDown(this.props.widget)} variant="warning col-md-1 col-sm-1">Shift Down</Button>}
             <Button onClick={this.saveWidget} variant="success col-md-1">Save</Button>
             <Button onClick={() => this.props.deleteWidget(this.props.widget.id)} variant="danger col-md-1">Delete</Button>
         </div>
@@ -114,7 +116,7 @@ export default class WidgetListItem extends React.Component {
             type: this.state.typeVal
         }
 
-        this.props.updateWidget(newWidget);
+        this.props.updateWidget(newWidget.id, newWidget);
     }
 
     toggleEditing = () => {
@@ -167,6 +169,7 @@ export default class WidgetListItem extends React.Component {
                     changeWidgetNameVal={this.changeWidgetNameVal}
                     deleteWidget={this.props.deleteWidget}
                     genButtonBar={this.genButtonBar("Link Widget")}
+                    preview={this.props.preview}
                     textVal={this.state.textVal}
                     widgetNameVal={this.state.widgetNameVal}/>)
             case "IMAGE":
@@ -176,6 +179,7 @@ export default class WidgetListItem extends React.Component {
                     changeWidgetNameVal={this.changeWidgetNameVal}
                     deleteWidget={this.props.deleteWidget}
                     genButtonBar={this.genButtonBar("Image Widget")}
+                    preview={this.props.preview}
                     textVal={this.state.textVal}
                     widgetNameVal={this.state.widgetNameVal}/>)
             default:
