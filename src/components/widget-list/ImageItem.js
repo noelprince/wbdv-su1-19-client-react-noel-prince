@@ -1,6 +1,5 @@
 import React from 'react'
-import {Button} from 'react-bootstrap';
-import './Item.css';
+import './Item.css'
 
 const ImageItem = ({changeTextVal, changeWidgetNameVal, genButtonBar, preview, textVal, widgetNameVal}) => {
     return (<li className="list-group-item">
@@ -26,7 +25,7 @@ const ImageItem = ({changeTextVal, changeWidgetNameVal, genButtonBar, preview, t
                         </div>
                 </div>}
             <h1>Preview</h1>
-            <img src={textVal}/>
+            <img src={textVal} alt="Did not load"/>
         </div>
     </li>)
 }

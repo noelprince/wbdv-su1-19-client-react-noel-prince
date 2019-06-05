@@ -20,10 +20,10 @@ export default class WidgetListItem extends React.Component {
         console.log(this.props.widget.type)
         this.state = {
             editing: false,
-            headSizeVal: this.props.widget.size != null ? this.props.widget.size : "",
-            listItemsTypeVal: this.props.widget.listItemsType != null ? this.props.widget.listItemsType : "",
-            textVal: this.props.widget.titleText != null ? this.props.widget.titleText: "",
-            typeVal: this.props.widget.type != null ? this.props.widget.type : "",
+            headSizeVal: this.props.widget.size !== null ? this.props.widget.size : "",
+            listItemsTypeVal: this.props.widget.listItemsType !== null ? this.props.widget.listItemsType : "",
+            textVal: this.props.widget.titleText !== null ? this.props.widget.titleText: "",
+            typeVal: this.props.widget.type !== null ? this.props.widget.type : "",
             widgetNameVal: this.props.widget.name
         }
     }
@@ -79,7 +79,7 @@ export default class WidgetListItem extends React.Component {
 
     genButtonBar = (widgetType) => {
         return <div className="row">
-            <h1 className="col-lg-6 col-md-5">{widgetType}</h1>
+            <h1 className="col-lg-5 col-md-4">{widgetType}</h1>
             {this.props.index != 0 &&
             <Button onClick={() => this.props.shiftUp(this.props.widget)} variant="warning col-md-1 col-sm-1">Shift Up</Button>}
             {this.props.index+1 != this.props.lengthVal &&

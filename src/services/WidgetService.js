@@ -1,3 +1,7 @@
+const url = "http://localhost:8080/api/widgets"
+//const url = "https://wbdv-react-client-noel-prince.herokuapp.com/widgets"
+
+
 export default class WidgetService {
     static myInstance = null;
     static getInstance() {
@@ -9,7 +13,7 @@ export default class WidgetService {
     }
 
     createWidget = widget =>
-        fetch("http://localhost:8080/api/widgets", {
+        fetch(url, {
             method: 'POST',
             body: JSON.stringify(widget),
             headers: {
@@ -18,7 +22,7 @@ export default class WidgetService {
         }).then(response => response.json())
 
     findAllWidgets = () =>
-        fetch("http://localhost:8080/api/widgets")
+        fetch(url)
             .then(response => response.json())
 
     /*findWidgetById = widgetId => {
@@ -26,11 +30,11 @@ export default class WidgetService {
     }*/
 
     deleteWidget = widgetId =>
-        fetch(`http://localhost:8080/api/widgets/${widgetId}`, {
+        fetch(`${url}/${widgetId}`, {
             method: 'DELETE'
         }).then(response => response.json())
     updateWidget = (wid, newWidget) => {
-        return (fetch(`http://localhost:8080/api/widgets/${wid}`, {
+        return (fetch(`${url}/${wid}`, {
             method: 'PUT',
             body: JSON.stringify(newWidget),
             headers: {

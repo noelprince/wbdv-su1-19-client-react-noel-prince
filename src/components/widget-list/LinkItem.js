@@ -1,5 +1,4 @@
 import React from 'react'
-import {Button} from 'react-bootstrap';
 import './Item.css';
 
 const LinkItem = ({changeTextVal, changeWidgetNameVal, genButtonBar, preview, textVal, widgetNameVal}) => {
