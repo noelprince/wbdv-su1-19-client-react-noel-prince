@@ -161,8 +161,6 @@ export default class LessonTabs extends React.Component {
                     id: moduleItem.id,
                     title: moduleItem.title,
                     lessons: moduleItem.lessons.map(lessonItem => {
-                        console.log(lessonItem.id);
-                        console.log(this.state.lessonUpdate.id);
                         if (lessonItem.id === this.state.lessonUpdate.id) {
                             return this.state.lessonUpdate;
                         } else {

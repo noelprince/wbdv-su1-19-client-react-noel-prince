@@ -160,7 +160,7 @@ export default class TopicPills extends React.Component {
                 }
             })
         } else {
-            return (<li className="nav-item" key={(new Date).getTime()}>
+            return (<li className="nav-item" key={(new Date()).getTime()}>
                         <a className="nav-link disabled">No Topics</a>
                     </li>)
         }

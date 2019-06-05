@@ -1,0 +1,28 @@
+.bordered-item {
+    border: 1px;
+    border-style: solid;
+    border-color: lightgray;
+}
+
+.row {
+    margin-left: 8px;
+    margin-right: 8px;
+}
+
+a {
+    margin-top: 4px;
+    margin-bottom: 4px;
+}
+
+Button {
+    margin-bottom: 4px;
+    margin-top: 4px;
+}
+
+input {
+    margin: 10px;
+}
+
+select {
+    margin: 10px;
+}

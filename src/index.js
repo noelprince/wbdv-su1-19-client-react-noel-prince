@@ -5,8 +5,9 @@ import * as serviceWorker from './serviceWorker';
 import 'bootstrap/dist/css/bootstrap.min.css';
 import Whiteboard from './components/whiteboard.component.client';
 
+
 ReactDOM.render(
-    <Whiteboard/>,
+        <Whiteboard/>,
     document.getElementById('root'));
 
 // If you want your app to work offline and load faster, you can change
