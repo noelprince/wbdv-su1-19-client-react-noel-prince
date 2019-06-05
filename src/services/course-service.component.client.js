@@ -32,6 +32,7 @@ class CourseService extends React.Component {
 
     deleteCourse = (id) => {
         const coursesNew = this.state.courses.filter(course => course.id !== id);
+        this.state.courses = coursesNew;
         this.setState({
             courses: coursesNew
         })
