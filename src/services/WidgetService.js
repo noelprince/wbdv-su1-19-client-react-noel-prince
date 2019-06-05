@@ -1,5 +1,5 @@
-const url = "http://localhost:8080/api/widgets"
-//const url = "https://wbdv-react-client-noel-prince.herokuapp.com/widgets"
+//const url = "http://localhost:8080/api/widgets"
+const url = "https://git.heroku.com/a3-java-noel-prince.git"
 
 
 export default class WidgetService {

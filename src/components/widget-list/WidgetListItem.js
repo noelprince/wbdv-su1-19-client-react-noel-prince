@@ -81,14 +81,14 @@ export default class WidgetListItem extends React.Component {
         return <div className="row">
             <h1 className="col-lg-5 col-md-4">{widgetType}</h1>
             {this.props.index != 0 &&
-            <Button onClick={() => this.props.shiftUp(this.props.widget)} variant="warning col-md-1 col-sm-1">Shift Up</Button>}
+            <Button onClick={() => this.props.shiftUp(this.props.widget)} variant="warning col-md-1 col-sm-2">Shift Up</Button>}
             {this.props.index+1 != this.props.lengthVal &&
-            <Button onClick={() => this.props.shiftDown(this.props.widget)} variant="warning col-md-1 col-sm-1">Shift Down</Button>}
+            <Button onClick={() => this.props.shiftDown(this.props.widget)} variant="warning col-md-1 col-sm-2">Shift Down</Button>}
             <select onChange={(event) =>
                 this.setState({
                     typeVal: event.target.value 
                 })}
-                className="form-control col-sm-2"
+                className="form-control col-md-2 col-sm-4"
                 value={this.state.typeVal}>
                 <option value="HEADING">Heading</option>
                 <option value="PARAGRAPH">Paragraph</option>
