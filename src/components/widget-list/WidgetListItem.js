@@ -17,6 +17,7 @@ export default class WidgetListItem extends React.Component {
         this.determineHeading = this.determineHeading.bind(this);
         this.genList = this.genList.bind(this);
         this.genListHelper = this.genListHelper.bind(this);
+        console.log(this.props.widget.type)
         this.state = {
             editing: false,
             headSizeVal: this.props.widget.size != null ? this.props.widget.size : "",
@@ -78,11 +79,23 @@ export default class WidgetListItem extends React.Component {
 
     genButtonBar = (widgetType) => {
         return <div className="row">
-            <h1 className="col-lg-7 col-md-6">{widgetType}</h1>
+            <h1 className="col-lg-6 col-md-5">{widgetType}</h1>
             {this.props.index != 0 &&
             <Button onClick={() => this.props.shiftUp(this.props.widget)} variant="warning col-md-1 col-sm-1">Shift Up</Button>}
             {this.props.index+1 != this.props.lengthVal &&
             <Button onClick={() => this.props.shiftDown(this.props.widget)} variant="warning col-md-1 col-sm-1">Shift Down</Button>}
+            <select onChange={(event) =>
+                this.setState({
+                    typeVal: event.target.value 
+                })}
+                className="form-control col-sm-2"
+                value={this.state.typeVal}>
+                <option value="HEADING">Heading</option>
+                <option value="PARAGRAPH">Paragraph</option>
+                <option value="LIST">List</option>
+                <option value="LINK">Link</option>
+                <option value="IMAGE">Image</option>
+            </select>
             <Button onClick={this.saveWidget} variant="success col-md-1">Save</Button>
             <Button onClick={() => this.props.deleteWidget(this.props.widget.id)} variant="danger col-md-1">Delete</Button>
         </div>
@@ -102,7 +115,7 @@ export default class WidgetListItem extends React.Component {
     }
 
     genListHelper = () => {
-        return this.state.textVal.split("\n").map((listItem, index) => 
+        return this.state.textVal.split(",").map((listItem, index) => 
             <li key={index}>{listItem}</li>)
     }
 
@@ -126,7 +139,7 @@ export default class WidgetListItem extends React.Component {
     }
 
     render() {
-        switch(this.props.widget.type) {
+        switch(this.state.typeVal) {
             case "HEADING":
                 return (<HeadingItem 
                     key={this.props.widget.id}

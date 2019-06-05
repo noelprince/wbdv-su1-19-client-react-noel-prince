@@ -88,7 +88,7 @@ export default class WidgetListComponent extends React.Component {
                             )
                         }
                     </ul>
-                    <button onClick={this.props.createWidget}>Create</button>
+                    <button onClick={this.props.createWidget} className="btn btn-success">Create</button>
                 </div>)
     }
 }
