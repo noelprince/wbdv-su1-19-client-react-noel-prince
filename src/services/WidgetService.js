@@ -1,5 +1,5 @@
 //const url = "http://localhost:8080/api/widgets"
-const url = "https://git.heroku.com/a3-java-noel-prince.git/api/widgets"
+const url = "https://a3-java-noel-prince.herokuapp.com/api/widgets"
 
 
 export default class WidgetService {
