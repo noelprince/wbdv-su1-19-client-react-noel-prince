@@ -1,14 +1,24 @@
 import React from 'react';
 import ModuleItem from './module-item.component.client';
 import {Link} from 'react-router-dom';
+import ModuleService from '../../services/ModuleService';
 
 export default class ModuleList extends React.Component {
     constructor(props) {
         super(props);
         var cleanModules = [];
-        if (this.props.course.modules != null) {
+        if (this.props.course != null && this.props.course.modules != null) {
             cleanModules = this.props.course.modules;
         }
+        const moduleService = new ModuleService();
+        console.log(this.props.course.id)
+        /*moduleService.findAllModules(this.props.course.id)
+            .then(modules => {
+                console.log(modules);
+                this.setState({
+                    modules: modules
+                })
+            })*/
         this.updateModule = this.updateModule.bind(this);
         this.submitUpdate = this.submitUpdate.bind(this);
         this.state = {
@@ -18,7 +28,7 @@ export default class ModuleList extends React.Component {
                 title: "",
                 lessons: []
             },
-            modules: cleanModules,
+            modules: [],
             moduleUpdater: {
                 id: -1,
                 title: "",
@@ -26,16 +36,18 @@ export default class ModuleList extends React.Component {
             },
             course: this.props.course,
             courseService: this.props.courseService,
+            moduleService: new ModuleService(),
             moduleToUpdateId: -1
         }
     }
 
     componentWillReceiveProps(nextProps) {
-        this.setState ({
-            activeModule: nextProps.activeModule,
-            course: nextProps.course,
-            modules: nextProps.course.modules
-        })
+        this.state.moduleService.findAllModules(nextProps.course.id)
+            .then(modules => {
+                this.setState({
+                    modules: modules
+                })
+            })
     }
 
     createModule = () => {
@@ -43,7 +55,10 @@ export default class ModuleList extends React.Component {
         if (this.state.module.title === "") {
             this.state.module.title = "New Module";
         }
-        this.state.course.modules.push(this.state.module);
+        var newModule = this.state.module;
+        //newModule.course_id = this.props.course.id;
+        //newModule.course = this.props.course;
+        //this.state.course.modules.push(this.state.module);
         this.setState({
             module: {
                 id: (new Date()).getTime(),
@@ -51,22 +66,37 @@ export default class ModuleList extends React.Component {
                 lessons: []
             }
         })
-        this.state.courseService.updateCourse(this.state.course.id, this.state.course);
-        this.props.renderAgain();
+        //this.state.courseService.updateCourse(this.state.course.id, this.state.course);
+        this.state.moduleService.createModule(this.props.course.id, newModule)
+            .then(modules => {
+                this.setState({
+                    modules: modules
+                })
+            })
     }
 
     deleteModule = (id) => {
-        this.setState({
-            modules: this.state.modules.filter(module => module.id !== id)
-        })
-        this.state.course.modules = this.state.course.modules.filter(moduleForMap => moduleForMap.id != id);
-        this.state.courseService.updateCourse(this.state.course);
+        this.state.moduleService.deleteModule(id, this.props.course.id)
+            .then(modules => {
+                this.setState({
+                    modules:modules
+                })
+            })
     }
 
     submitUpdate = () => {
-        console.log(this.state.moduleUpdater.title);
-        console.log(this.state.moduleUpdater.id);
-        var newModuleList = this.state.modules.map(moduleItem => {
+        this.state.moduleService.updateModule(this.state.moduleUpdater.id, this.props.course.id, this.state.moduleUpdater)
+            .then(modules => {
+                this.setState({
+                    modules:modules
+                })
+            })
+        this.state.moduleUpdater = {
+            id: -1,
+            title: "",
+            lessons: []
+        }
+        /*var newModuleList = this.state.modules.map(moduleItem => {
             if (this.state.moduleUpdater.id === moduleItem.id) {
                 return {
                     id: moduleItem.id,
@@ -99,7 +129,7 @@ export default class ModuleList extends React.Component {
 
         this.setState({
             state: this.state
-        })
+        })*/
     }
 
     titleChanged = (event) => {
@@ -144,13 +174,14 @@ export default class ModuleList extends React.Component {
                                placeholder="New Module"
                                type="text"
                                onChange={this.titleChanged}
-                               value={this.state.module.title}/>
+                               value={this.state.module.title != null ? this.state.module.title : ""}/>
                         <button onClick={this.createModule} className="btn btn-primary btn-block">
                             Add module
                         </button>
                     </li>
+                    {console.log(this.state.modules)}
                     {
-                        this.state.modules.map((moduleForMap) => {
+                        this.state.modules&&this.state.modules.map((moduleForMap) => {
                             var classText = null;
                             if (this.state.activeModule != null && moduleForMap.id == this.state.activeModule.id) {
                                 classText = "list-group-item active";

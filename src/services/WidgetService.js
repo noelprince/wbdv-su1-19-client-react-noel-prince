@@ -12,14 +12,16 @@ export default class WidgetService {
         return this.myInstance;
     }
 
-    createWidget = widget =>
-        fetch(url, {
+    createWidget = widget => {
+        console.log(widget)
+        return fetch(url, {
             method: 'POST',
             body: JSON.stringify(widget),
             headers: {
                 'content-type': 'application/json'
             }
         }).then(response => response.json())
+    }
 
     findAllWidgets = () =>
         fetch(url)
@@ -33,6 +35,7 @@ export default class WidgetService {
         fetch(`${url}/${widgetId}`, {
             method: 'DELETE'
         }).then(response => response.json())
+        
     updateWidget = (wid, newWidget) => {
         return (fetch(`${url}/${wid}`, {
             method: 'PUT',

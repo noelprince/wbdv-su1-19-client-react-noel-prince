@@ -7,13 +7,17 @@ export default class CourseList extends React.Component {
     constructor(props) {
         super(props);
         const courseService = this.props.courseService;
-        const courses = courseService.findAllCourses();
         this.addCourse = this.addCourse.bind(this);
         this.titleChange = this.titleChange.bind(this);
         this.deleteRow = this.deleteRow.bind(this);
+        courseService.findAllCourses()
+            .then(courses => {
+                console.log(courses)
+                this.setState({courses: courses})
+            })
         this.state = {
             courseName: "",
-            courses: courses,
+            courses: [],
             courseService: courseService
         }
     }
@@ -24,18 +28,22 @@ export default class CourseList extends React.Component {
             title: this.state.courseName,
             modules: []
         }
-        this.state.courseService.createCourse(course);
-        this.setState({
-            courses: this.state.courseService.findAllCourses()
-        })
+        this.state.courseService.createCourse(course)
+            .then(courses => {
+                this.setState({
+                    courses: courses
+                })
+            })
     }
 
     deleteRow(event) {
         const rowId = event.target.id;
-        this.state.courseService.deleteCourse(rowId);
-        this.setState({
-            courses: this.state.courseService.findAllCourses()
-        })
+        this.state.courseService.deleteCourse(rowId)
+            .then(courses => {
+                this.setState({
+                    courses: courses
+                })
+            })
     }
 
     titleChange = (event) => {
@@ -70,6 +78,7 @@ export default class CourseList extends React.Component {
                             </tr>
                         </thead>
                         <tbody>
+                        {console.log(this.state.courses)}
                         {
                             this.state.courses.map((course, index) => 
                                 <CourseRow key={index} course={course} deleteRow={this.deleteRow}/>

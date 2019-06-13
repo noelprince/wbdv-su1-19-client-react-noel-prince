@@ -9,14 +9,18 @@ export default class CourseEditor extends React.Component {
             super(props);
             const pathParts = window.location.href.split("/");
             const courseId = pathParts[4];
-            const course = this.props.courseService.findCourseById(courseId);
+            this.props.courseService.findCourseById(courseId)
+                .then(course => {
+                    console.log(course);
+                    this.setState({course: course})
+                })
             this.renderAgain = this.renderAgain.bind(this);
             this.setActiveModule = this.setActiveModule.bind(this);
             this.setActiveLesson = this.setActiveLesson.bind(this);
             this.setActiveTopic = this.setActiveTopic.bind(this);
             this.state = {
                 courseId: courseId,
-                course: course,
+                course: {id: 0, title: "", modules: []},
                 courseService: this.props.courseService,
                 activeModule: null,
                 activeLesson: null,

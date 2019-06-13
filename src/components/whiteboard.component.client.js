@@ -3,7 +3,7 @@ import CourseEditor from "./course-editor/course-editor.component.client";
 import {BrowserRouter as Router, Route, Link} from 'react-router-dom';
 import CourseList from './course-list/course-list.component.client';
 import CourseGrid from './course-grid/course-grid.component.client.js';
-import CourseService from '../services/course-service.component.client';
+import CourseService from '../services/CourseService';
 import '../../node_modules/font-awesome/css/font-awesome.min.css';
 import './whiteboard.style.client.css';
 import {Provider} from 'react-redux';

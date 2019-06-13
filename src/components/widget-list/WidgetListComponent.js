@@ -72,6 +72,7 @@ export default class WidgetListComponent extends React.Component {
                             <button className="btn btn-warning" onClick={this.switchPreview}>Preview</button>
                             <button className="btn btn-success" onClick={this.props.createWidget}>Add Widget</button>
                         </li>
+                        {console.log(this.props.widgets)}
                         {
                             this.props.widgets.map((widget, index) =>
                                 <WidgetListItem
