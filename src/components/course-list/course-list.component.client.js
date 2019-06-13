@@ -24,7 +24,6 @@ export default class CourseList extends React.Component {
 
     addCourse() {
         const course = {
-            id: (new Date()).getTime().toString(),
             title: this.state.courseName,
             modules: []
         }

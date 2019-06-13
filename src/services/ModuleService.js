@@ -1,11 +1,13 @@
 import React from 'react';
 
-const url = "http://localhost:8080/api/modules"
+//const url = "http://localhost:8080"
+const url = "https://wbdv-a5-noel-prince.herokuapp.com/"
 
 class ModuleService extends React.Component {
 
     createModule = (courseId, module) => {
-        return fetch(`http://localhost:8080/api/courses/${courseId}/modules`, {
+        console.log(courseId);
+        return fetch(`${url}/api/courses/${courseId}/modules`, {
             method: 'POST',
             body: JSON.stringify(module),
             headers: {
@@ -15,7 +17,7 @@ class ModuleService extends React.Component {
     }
 
     findAllModules = (courseId) => {
-        return fetch(`http://localhost:8080/api/courses/${courseId}/modules`)
+        return fetch(`${url}/api/courses/${courseId}/modules`)
             .then(response => response.json())
         //return this.state.courses;
     }
@@ -27,7 +29,7 @@ class ModuleService extends React.Component {
     updateModule = (id, courseId, module) => {
         console.log(module.title);
         console.log(module.id);
-        return (fetch(`http://localhost:8080/api/courses/${courseId}/modules/${id}`, {
+        return (fetch(`${url}/api/courses/${courseId}/modules/${id}`, {
             method: 'PUT',
             body: JSON.stringify(module),
             headers: {
@@ -44,7 +46,7 @@ class ModuleService extends React.Component {
     }
 
     deleteModule = (id, courseId) => {
-        return fetch(`http://localhost:8080/api/courses/${courseId}/modules/${id}`, {
+        return fetch(`${url}/api/courses/${courseId}/modules/${id}`, {
             method: 'DELETE'
         }).then(response => response.json())
         /*const coursesNew = this.state.courses.filter(course => course.id !== id);

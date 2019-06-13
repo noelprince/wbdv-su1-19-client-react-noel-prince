@@ -21,6 +21,7 @@ export default class ModuleList extends React.Component {
             })*/
         this.updateModule = this.updateModule.bind(this);
         this.submitUpdate = this.submitUpdate.bind(this);
+        console.log(this.props.activeModule)
         this.state = {
             activeModule: this.props.activeModule,
             module: {
@@ -42,16 +43,16 @@ export default class ModuleList extends React.Component {
     }
 
     componentWillReceiveProps(nextProps) {
-        this.state.moduleService.findAllModules(nextProps.course.id)
+        this.state.moduleService.findAllModules(nextProps.course.id != null ? nextProps.course.id : this.state.course.id)
             .then(modules => {
                 this.setState({
+                    activeModule: nextProps.activeModule,
                     modules: modules
                 })
             })
     }
 
     createModule = () => {
-        this.state.module.id = (new Date()).getTime();
         if (this.state.module.title === "") {
             this.state.module.title = "New Module";
         }
@@ -61,7 +62,6 @@ export default class ModuleList extends React.Component {
         //this.state.course.modules.push(this.state.module);
         this.setState({
             module: {
-                id: (new Date()).getTime(),
                 title: "",
                 lessons: []
             }
@@ -72,6 +72,7 @@ export default class ModuleList extends React.Component {
                 this.setState({
                     modules: modules
                 })
+                this.props.newModuleCreated(modules)
             })
     }
 

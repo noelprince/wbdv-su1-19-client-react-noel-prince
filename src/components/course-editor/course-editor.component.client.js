@@ -2,6 +2,7 @@ import React from 'react'
 import ModuleList from "./module-list.component.client";
 import LessonTabs from "./lesson-tabs.component.client";
 import TopicPills from "./topic-pills.component.client";
+import ModuleService from '../../services/ModuleService';
 
 
 export default class CourseEditor extends React.Component {
@@ -9,10 +10,17 @@ export default class CourseEditor extends React.Component {
             super(props);
             const pathParts = window.location.href.split("/");
             const courseId = pathParts[4];
+            const moduleService = new ModuleService();
             this.props.courseService.findCourseById(courseId)
                 .then(course => {
                     console.log(course);
                     this.setState({course: course})
+                })
+            moduleService.findAllModules(parseInt(courseId))
+                .then(modules => {
+                    console.log(modules)
+                    this.state.course.modules = modules
+                    console.log(this.state.course)
                 })
             this.renderAgain = this.renderAgain.bind(this);
             this.setActiveModule = this.setActiveModule.bind(this);
@@ -22,6 +30,7 @@ export default class CourseEditor extends React.Component {
                 courseId: courseId,
                 course: {id: 0, title: "", modules: []},
                 courseService: this.props.courseService,
+                moduleService: moduleService,
                 activeModule: null,
                 activeLesson: null,
                 activeTopic: null,
@@ -33,9 +42,16 @@ export default class CourseEditor extends React.Component {
             courseService: nextProps.courseService
         })
     }
+
+    newModuleCreated = (modules) => {
+        this.state.course.modules = modules
+    }
     
     setActiveModule(module) {
+        console.log(this.state.course);
         for (var i = 0; i < this.state.course.modules.length; i++) {
+            console.log(module.id);
+            console.log(this.state.course.modules[i].id)
             if (module.id === this.state.course.modules[i].id) {
                 this.setState({
                         activeModule: this.state.course.modules[i]
@@ -163,6 +179,7 @@ export default class CourseEditor extends React.Component {
                         <ModuleList activeModule={this.state.activeModule}
                                     courseService={this.state.courseService}
                                     course={this.state.course}
+                                    newModuleCreated={this.newModuleCreated}
                                     renderAgain={this.renderAgain}
                                     setActiveModule={this.setActiveModule}/>
                     </div>

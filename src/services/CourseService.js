@@ -1,7 +1,8 @@
 import React from 'react';
 import courses from './courses.json';
 
-const url = "http://localhost:8080/api/courses"
+//const url = "http://localhost:8080"
+const url = "https://wbdv-a5-noel-prince.herokuapp.com/"
 
 class CourseService extends React.Component {
     constructor(props) {
@@ -12,7 +13,7 @@ class CourseService extends React.Component {
     }
 
     createCourse = (course) => {
-        return fetch(url, {
+        return fetch(`${url}/api/courses`, {
             method: 'POST',
             body: JSON.stringify(course),
             headers: {
@@ -23,7 +24,7 @@ class CourseService extends React.Component {
     }
 
     findAllCourses = () => {
-        return fetch(url)
+        return fetch(`${url}/api/courses`)
             .then(response => {
                 return response.json()
             })
@@ -31,14 +32,14 @@ class CourseService extends React.Component {
     }
 
     findCourseById = (id) => {
-        return fetch(`${url}/${id}`)
+        return fetch(`${url}/api/courses/${id}`)
             .then(response => {
                 return response.json()
             })
     }
 
     updateCourse = (id, course) => {
-        return (fetch(`${url}/${id}`, {
+        return (fetch(`${url}/api/courses/${id}`, {
             method: 'PUT',
             body: JSON.stringify(course),
             headers: {
@@ -55,7 +56,7 @@ class CourseService extends React.Component {
     }
 
     deleteCourse = (id) => {
-        return fetch(`${url}/${id}`, {
+        return fetch(`${url}/api/courses/${id}`, {
             method: 'DELETE'
         }).then(response => response.json())
         /*const coursesNew = this.state.courses.filter(course => course.id !== id);
