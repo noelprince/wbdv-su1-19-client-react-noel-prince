@@ -24,7 +24,7 @@ export default class CourseList extends React.Component {
 
     addCourse() {
         const course = {
-            title: this.state.courseName,
+            title: this.state.courseName != "" ? this.state.courseName : "New Course",
             modules: []
         }
         this.state.courseService.createCourse(course)
